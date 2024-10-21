@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: SLA CON Test API 
+  version: 0.0.1
+  description: |
+    Hey This is tje API :
+    - Feature 1
+    - Feature 2
+  contact: 
+    name: "Neeraj Pandey"
+    email: "email@mail.com"
+    url: "https://www.google.com/neerajpandey"
+  license: 
+    name: "Apache 2.0"
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+servers:
+  - url: https://439580bc-fb9d-4afc-b21e-2db56160930a.mock.pstmn.io
+    description: "Production Server"
+  - url: https://439580bc-fb9d-4afc-b21e-2db56160930a.mock.pstmn.io
+    description: "Development Server"
+tags:
+  - name: "User"
+    description: "User related endpoints"
+  - name: "Admin"
+    description: "Admin related endpoints"
+
+paths:
+  /reminders:
+    get:
+      tags: 
+        - "User"
+      summary: "Get All reminders"
+      description: "Get all reminders Description"
+      parameters:
+        - in: query 
+          name: page 
+          schema:
+            type: integer
+            minimum: 1 
+            maximum: 100
+            default: 1
+          description: "This is for the page number"
+        - in: query 
+          name: limit 
+          schema:
+            type: integer
+            minimum: 1 
+            maximum: 100
+            default: 10
+          description: "This is for the limit number"
+      responses:
+        '200':
+          description: "Resukt is successful"
+          content: 
+            application/json:
+              schema: 
+                type: object 
+                properties: 
+                  reminders:
+                    type: array 
+                    items: 
+                      $ref: "#/components/schemas/Reminder"
+                  total: 
+                    type: integer
+                    example: 10
+                    description: "Total number of reminders"
+
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+
+        '400':
+          $ref: "#/components/responses/BadRequest"
+
+components:
+  schemas:
+    Reminder: 
+      allOf:
+        - type: object
+          required:
+            - id 
+          properties:
+            id: 
+              type: string
+              format: uuid
+              example: "12e7182jajsjs-101918sjs-1901001"
+            description: 
+              type: string
+              example: "This is a reminder"
+            createdAt: 
+              type: string
+              format: date-time
+              example: "2021-10-10T10:10:10Z"
+
+  responses:
+    UnauthorizedError:
+      description: "Unauthorized Error"
+      content: 
+        application/json:
+          schema: 
+            type: object 
+            properties: 
+              message: 
+                type: string
+                example: "Unauthorized"
+              code: 
+                type: integer
+                example: 401
+                description: "Unauthorized Error Code"
+    BadRequest:
+      description: "Bad Request Error"
+      content: 
+        application/json:
+          schema: 
+            type: object 
+            properties: 
+              message: 
+                type: string
+                example: "Bad Request"
+              code: 
+                type: integer
+                example: 400
+                description: "Bad Request Error Code"
+            
+
+                    
