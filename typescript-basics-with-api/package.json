@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon demo.ts",
-    "start:api": "npx ts-node api.ts",
+    "start:api": "nodemon api.ts",
     "start:zod": "nodemon zod.ts"
   },
   "keywords": [],

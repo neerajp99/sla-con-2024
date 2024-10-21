@@ -1,0 +1,36 @@
+service: typesafe-lambda-api
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  region: 'us-east-1'
+  profile: ${opt:profile, 'default'}
+
+functions:
+  hello:
+    handler: src/handlers/hello.handler
+    events:
+      - http:
+          path: hello
+          method: get
+  users:
+    handler: src/handlers/users.handler
+    events:
+      - http:
+          path: users
+          method: any
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+    noPrependStageInUrl: true
+
+package:
+  individually: true
+  exclude:
+    - node_modules/**

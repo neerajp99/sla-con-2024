@@ -1,0 +1,59 @@
+openapi: 3.0.0
+info:
+  title: Reminder API2
+  version: 1.0.0
+servers:
+  - url: https://439580bc-fb9d-4afc-b21e-2db56160930a.mock.pstmn.io
+paths:
+  /reminders:
+    get:
+      summary: List all reminders
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:    
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reminder'
+    post:
+      summary: Create a new reminder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewReminder'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reminder'
+components:
+  schemas:
+    NewReminder:
+      type: object
+      required:
+        - title
+        - dueDate
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        dueDate:
+          type: string
+          format: date-time
+    Reminder:
+      allOf:
+        - $ref: '#/components/schemas/NewReminder'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              format: uuid

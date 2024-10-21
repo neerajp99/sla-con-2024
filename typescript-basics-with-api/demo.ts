@@ -28,8 +28,9 @@ enum Color {
   Green,
   Blue,
 }
+
 let c: Color = Color.Green;
-// console.log(c); //?? Output
+console.log("Color output", c); //?? Output
 
 // Any
 /**
@@ -64,7 +65,7 @@ function printLabel(labeledObj: LabeledValue) {
   // labeledObj.id = 42; // Error: Cannot assign to 'id' because it is a read-only property
 }
 
-let myObj = { size: 10, label: "Size 10 Object", id: 1 };
+let myObj = { label: "Size 10 Object", id: 1 };
 printLabel(myObj);
 
 // Classes
@@ -105,11 +106,13 @@ function identity<T>(arg: T): T {
 
 let output = identity<string>("myString");
 let output2 = identity(42); // Type inference allows type argument to be omitted
+console.log("OUTPUT:", output2);
 
 // Union Types
 /**
  * Union types allow you to specify that a value can be one of several types.
  */
+// id: '1'
 function padLeft(value: string, padding: string | number) {
   if (typeof padding === "number") {
     return Array(padding + 1).join(" ") + value;
@@ -127,6 +130,10 @@ console.log(padLeft("Hello, world", 4)); // Returns "    Hello, world"
  * Type aliases create a new name for a type. They can be used to name primitive types,
  * union types, tuples, and any other types that you'd otherwise have to write by hand.
  */
+// type ObjectType = {
+//   name: string;
+//   age: number;
+// }
 type StringOrNumber = string | number;
 let snValue: StringOrNumber = "hello";
 snValue = 42; // This is also valid
@@ -174,6 +181,7 @@ handleArtworksResponse({
 /**
  * Function overloads allow you to specify multiple function signatures for the same function.
  */
+
 function makeDate(timestamp: number): Date;
 function makeDate(m: number, d: number, y: number): Date;
 function makeDate(mOrTimestamp: number, d?: number, y?: number): Date {

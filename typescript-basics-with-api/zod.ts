@@ -18,7 +18,7 @@ const validString = stringSchema.parse("hello");
 const validNumber = numberSchema.parse(42);
 const validBoolean = booleanSchema.parse(true);
 
-// console.log("Expected String, Received a number", stringSchema.parse(42));
+// console.log("Expected String, Recexived a number", stringSchema.safeParse(42));
 
 // Object Schemas
 /**
@@ -43,7 +43,7 @@ const validUser = userSchema.parse({
   age: 30,
 });
 
-// console.log("Valid User:", validUser);
+console.log("Valid User:", validUser);
 
 // const invalidUser = userSchema.parse({
 //   id: "not a number",
@@ -60,7 +60,7 @@ const validUser = userSchema.parse({
 const numberArraySchema = z.array(z.number());
 const userArraySchema = z.array(userSchema);
 
-// Usgae for valid and invalid data
+// Usage for valid and invalid data
 const validNumbers = numberArraySchema.parse([1, 2, 3]);
 const validUsers = userArraySchema.parse([
   {
@@ -89,8 +89,8 @@ const validUsers = userArraySchema.parse([
  */
 const stringOrNumberSchema = z.union([z.string(), z.number()]);
 
-// Usage
-// const validStringOrNumber = stringOrNumberSchema.parse("hello");
+// Usage |
+// const validStringOrNumber = stringOrNumberSchema.parse(1000);
 // console.log("Valid String or Number:", validStringOrNumber);
 
 // Enum Schemas
@@ -133,28 +133,28 @@ function validateUser(data: unknown): User {
 }
 
 // Usage examples with proper error handling
-// try {
-//   const validUser = validateUser({
-//     id: 1,
-//     name: "John Doe",
-//     email: "john@example.com",
-//     age: 30,
-//   });
-//   console.log("Valid user:", validUser);
+try {
+  const validUser = validateUser({
+    id: 1,
+    name: "John Doe",
+    email: "john@example.com",
+    age: 30,
+  });
+  console.log("Valid user:", validUser);
 
-//   const invalidUser = validateUser({
-//     id: "not a number",
-//     name: 123,
-//     email: "not an email",
-//   });
-// } catch (error) {
-//   // Proper error handling for unknown type
-//   if (error instanceof Error) {
-//     console.error("Error:", error.message);
-//   } else {
-//     console.error("An unknown error occurred:", error);
-//   }
-// }
+  const invalidUser = validateUser({
+    id: "not a number",
+    name: 123,
+    email: "not an email",
+  });
+} catch (error) {
+  // Proper error handling for unknown type
+  if (error instanceof Error) {
+    console.error("Error:", error.message);
+  } else {
+    console.error("An unknown error occurred:", error);
+  }
+}
 
 // Async Validation
 /**
