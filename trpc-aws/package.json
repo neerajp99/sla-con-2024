@@ -1,0 +1,26 @@
+{
+  "name": "trpc-lambda-example",
+  "version": "1.0.0",
+  "description": "A simple tRPC AWS Lambda example",
+  "main": "dist/handler.js",
+  "scripts": {
+    "build": "tsc",
+    "start:client": "ts-node src/client.ts",
+    "deploy": "serverless deploy"
+  },
+  "dependencies": {
+    "@trpc/client": "^10.45.2",
+    "@trpc/server": "^10.34.0",
+    "aws-lambda": "^1.0.7",
+    "ts-node": "^10.9.2",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.119",
+    "@types/node": "^20.4.2",
+    "serverless": "^3.33.0",
+    "serverless-offline": "^13.0.0",
+    "serverless-plugin-typescript": "^2.1.5",
+    "typescript": "^5.1.6"
+  }
+}

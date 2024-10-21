@@ -1,0 +1,23 @@
+service: trpc-lambda-example-aws
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  region: "us-east-1"
+  profile: "default"
+functions:
+  trpc:
+    handler: trpc-lambda.handler
+    events:
+      - http:
+          path: hello
+          method: get
+      - http:
+          path: greet
+          method: post
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
+custom:
+  serverless-offline:
+    httpPort: 3000
